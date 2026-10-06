@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Savanna Table | Restaurant & Dining</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f8f5ef;
+            color: #24211d;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            width: 100%;
+            display: block;
+        }
+
+        /* NAVBAR */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(25, 22, 18, 0.92);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: #d5a85a;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #fff;
+            font-size: 0.95rem;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #d5a85a;
+        }
+
+        .nav-btn {
+            background: #d5a85a;
+            color: #1d1812 !important;
+            padding: 10px 18px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            background:
+                linear-gradient(rgba(20, 17, 13, 0.55), rgba(20, 17, 13, 0.7)),
+                url("https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1800&q=85")
+                center/cover;
+            display: flex;
+            align-items: center;
+            padding: 120px 7% 80px;
+            color: white;
+        }
+
+        .hero-content {
+            max-width: 750px;
+        }
+
+        .eyebrow {
+            color: #d5a85a;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-bottom: 18px;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 7vw, 6rem);
+            line-height: 1;
+            margin-bottom: 25px;
+        }
+
+        .hero p {
+            max-width: 600px;
+            font-size: 1.15rem;
+            color: #eee;
+            margin-bottom: 35px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 25px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-primary {
+            background: #d5a85a;
+            color: #211b14;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+        }
+
+        .btn-outline {
+            border: 1px solid white;
+            color: white;
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: #211b14;
+        }
+
+        /* GENERAL */
+        section {
+            padding: 90px 7%;
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-heading span {
+            color: #a77a32;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .section-heading h2 {
+            font-size: 2.7rem;
+            margin: 10px 0;
+        }
+
+        .section-heading p {
+            max-width: 650px;
+            margin: auto;
+            color: #6c665e;
+        }
+
+        /* ABOUT */
+        .about {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-image img {
+            height: 520px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .about-text h2 {
+            font-size: 2.8rem;
+            margin: 10px 0 20px;
+        }
+
+        .about-text p {
+            color: #6c665e;
+            margin-bottom: 20px;
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .feature {
+            border-left: 3px solid #d5a85a;
+            padding-left: 15px;
+        }
+
+        .feature h3 {
+            margin-bottom: 5px;
+        }
+
+        .feature p {
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        /* MENU */
+        .menu {
+            background: #211d18;
+            color: white;
+        }
+
+        .menu .section-heading p {
+            color: #bbb3a9;
+        }
+
+        .menu-grid {
+            max-width: 950px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px 50px;
+        }
+
+        .menu-item {
+            padding: 20px 0;
+            border-bottom: 1px solid #49423a;
+        }
+
+        .menu-item-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .menu-item h3 {
+            font-size: 1.1rem;
+        }
+
+        .price {
+            color: #d5a85a;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .menu-item p {
+            color: #aaa198;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        /* GALLERY */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .gallery-grid img {
+            height: 270px;
+            object-fit: cover;
+            border-radius: 7px;
+            transition: 0.4s;
+        }
+
+        .gallery-grid img:hover {
+            transform: scale(1.03);
+        }
+
+        /* TESTIMONIALS */
+        .testimonials {
+            background: #eee9df;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .testimonial {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+        }
+
+        .stars {
+            color: #d5a85a;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .testimonial p {
+            color: #5e5952;
+            margin-bottom: 20px;
+        }
+
+        .testimonial strong {
+            color: #24211d;
+        }
+
+        /* RESERVATION */
+        .reservation {
+            background:
+                linear-gradient(rgba(28, 23, 17, 0.85), rgba(28, 23, 17, 0.85)),
+                url("https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=1800&q=80")
+                center/cover;
+            color: white;
+            text-align: center;
+        }
+
+        .reservation h2 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .reservation p {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            color: #ddd;
+        }
+
+        /* CONTACT */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            text-align: center;
+        }
+
+        .contact-card {
+            padding: 30px;
+            background: white;
+            border-radius: 8px;
+        }
+
+        .contact-card .icon {
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+
+        .contact-card h3 {
+            margin-bottom: 8px;
+        }
+
+        .contact-card p {
+            color: #6c665e;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #171411;
+            color: white;
+            padding: 50px 7% 25px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-bottom: 35px;
+        }
+
+        .footer-brand {
+            max-width: 350px;
+        }
+
+        .footer-brand h2 {
+            margin-bottom: 10px;
+        }
+
+        .footer-brand p {
+            color: #aaa39a;
+        }
+
+        .footer-links h3 {
+            margin-bottom: 15px;
+        }
+
+        .footer-links a {
+            display: block;
+            color: #aaa39a;
+            margin-bottom: 8px;
+        }
+
+        .footer-links a:hover {
+            color: #d5a85a;
+        }
+
+        .copyright {
+            border-top: 1px solid #37312b;
+            padding-top: 20px;
+            color: #888;
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        /* WHATSAPP */
+        .whatsapp {
+            position: fixed;
+            right: 22px;
+            bottom: 22px;
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            background: #25D366;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.7rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+            z-index: 999;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .nav-links {
+                gap: 15px;
+            }
+
+            .about {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 650px) {
+            nav {
+                padding: 15px 5%;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            section {
+                padding: 70px 5%;
+            }
+
+            .hero {
+                padding-left: 5%;
+                padding-right: 5%;
+            }
+
+            .hero h1 {
+                font-size: 3.3rem;
+            }
+
+            .about-features {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid img {
+                height: 300px;
+            }
+
+            .reservation h2 {
+                font-size: 2.3rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <a href="#" class="logo">SAVANNA <span>TABLE</span></a>
+
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#reservation" class="nav-btn">Reserve a Table</a></li>
+        </ul>
+    </nav>
+
+
+    <!-- HERO -->
+    <header class="hero">
+
+        <div class="hero-content">
+
+            <div class="eyebrow">Nairobi • Kenya</div>
+
+            <h1>Good food.<br>Great moments.</h1>
+
+            <p>
+                A modern dining experience inspired by the flavours,
+                ingredients and spirit of Africa.
+            </p>
+
+            <div class="hero-buttons">
+                <a href="#menu" class="btn btn-primary">Explore Our Menu</a>
+                <a href="#reservation" class="btn btn-outline">Book a Table</a>
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- ABOUT -->
+    <section id="about">
+
+        <div class="about">
+
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=1000&q=85" alt="Restaurant interior">
+            </div>
+
+            <div class="about-text">
+
+                <span class="eyebrow">Our Story</span>
+
+                <h2>Where African flavour meets modern dining.</h2>
+
+                <p>
+                    Savanna Table is a fictional concept restaurant created
+                    to celebrate exceptional food, warm hospitality and
+                    unforgettable dining experiences.
+                </p>
+
+                <p>
+                    From carefully selected ingredients to beautifully
+                    presented dishes, every detail is designed to make
+                    your visit memorable.
+                </p>
+
+                <div class="about-features">
+
+                    <div class="feature">
+                        <h3>Fresh Ingredients</h3>
+                        <p>Quality ingredients selected every day.</p>
+                    </div>
+
+                    <div class="feature">
+                        <h3>Local Flavours</h3>
+                        <p>Inspired by Kenya and the wider continent.</p>
+                    </div>
+
+                    <div class="feature">
+                        <h3>Warm Service</h3>
+                        <p>Hospitality that makes you feel at home.</p>
+                    </div>
+
+                    <div class="feature">
+                        <h3>Perfect Atmosphere</h3>
+                        <p>A space made for conversations and memories.</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- MENU -->
+    <section class="menu" id="menu">
+
+        <div class="section-heading">
+
+            <span>Our Menu</span>
+
+            <h2>Made to be remembered.</h2>
+
+            <p>
+                A sample selection from our fictional restaurant menu.
+            </p>
+
+        </div>
+
+        <div class="menu-grid">
+
+            <div class="menu-item">
+                <div class="menu-item-top">
+                    <h3>Grilled Beef Tenderloin</h3>
+                    <span class="price">KSh 1,850</span>
+                </div>
+                <p>Char-grilled beef, roasted vegetables and house sauce.</p>
+            </div>
+
+            <div class="menu-item">
+                <div class="menu-item-top">
+                    <h3>Swahili Coconut Fish</h3>
+                    <span class="price">KSh 1,450</span>
+                </div>
+                <p>Fresh fish cooked in a fragrant coconut and spice sauce.</p>
+            </div>
+
+            <div class="menu-item">
+                <div class="menu-item-top">
+                    <h3>Chicken Peri-Peri</h3>
+                    <span class="price">KSh 1,250</span>
+                </div>
+                <p>Fire-grilled chicken served with seasoned potatoes.</p>
+            </div>
+
+            <div class="menu-item">
+                <div class="menu-item-top">
+                    <h3>Garden Pasta</h3>
+                    <span class="price">KSh 950</span>
+                </div>
+                <p>Fresh pasta, seasonal vegetables and parmesan.</p>
+            </div>
+
+            <div class="menu-item">
+                <div class="menu-item-top">
+                    <h3>Classic Beef Burger</h3>
+                    <span class="price">KSh 850</span>
+                </div>
+                <p>Premium beef, cheddar, lettuce and house dressing.</p>
+            </div>
+
+            <div class="menu-item">
+                <div class="menu-item-top">
+                    <h3>Avocado & Mango Salad</h3>
+                    <span class="price">KSh 700</span>
+                </div>
+                <p>Fresh avocado, mango, greens and citrus dressing.</p>
+            </div>
+
+            <div class="menu-item">
+                <div class="menu-item-top">
+                    <h3>Chocolate Lava Cake</h3>
+                    <span class="price">KSh 550</span>
+                </div>
+                <p>Warm chocolate cake served with vanilla ice cream.</p>
+            </div>
+
+            <div class="menu-item">
+                <div class="menu-item-top">
+                    <h3>Passion Fruit Cheesecake</h3>
+                    <span class="price">KSh 500</span>
+                </div>
+                <p>Creamy cheesecake with Kenyan passion fruit.</p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- GALLERY -->
+    <section id="gallery">
+
+        <div class="section-heading">
+
+            <span>Gallery</span>
+
+            <h2>A taste of the experience.</h2>
+
+            <p>
+                A visual preview of the atmosphere and food.
+            </p>
+
+        </div>
+
+        <div class="gallery-grid">
+
+            <img src="https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=900&q=80" alt="Restaurant food">
+
+            <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=900&q=80" alt="Restaurant interior">
+
+            <img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=900&q=80" alt="Healthy meal">
+
+            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=900&q=80" alt="Pizza">
+
+        </div>
+
+    </section>
+
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials">
+
+        <div class="section-heading">
+
+            <span>Guest Reviews</span>
+
+            <h2>Good food speaks for itself.</h2>
+
+        </div>
+
+        <div class="testimonial-grid">
+
+            <div class="testimonial">
+
+                <div class="stars">★★★★★</div>
+
+                <p>
+                    “Beautiful atmosphere, incredible food and genuinely
+                    friendly service. Definitely coming back.”
+                </p>
+
+                <strong>— Sarah M.</strong>
+
+            </div>
+
+            <div class="testimonial">
+
+                <div class="stars">★★★★★</div>
+
+                <p>
+                    “The perfect place for dinner. Everything from the
+                    presentation to the atmosphere was excellent.”
+                </p>
+
+                <strong>— Daniel K.</strong>
+
+            </div>
+
+            <div class="testimonial">
+
+                <div class="stars">★★★★★</div>
+
+                <p>
+                    “One of those places where you immediately feel
+                    comfortable. The food was fantastic.”
+                </p>
+
+                <strong>— Michelle A.</strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- RESERVATION -->
+    <section class="reservation" id="reservation">
+
+        <h2>Your table is waiting.</h2>
+
+        <p>
+            Planning a special dinner, date night or celebration?
+            Reserve your table and let us take care of the rest.
+        </p>
+
+        <a href="https://wa.me/254700000000?text=Hello%20Savanna%20Table%2C%20I%20would%20like%20to%20make%20a%20reservation."
+           class="btn btn-primary">
+            Reserve via WhatsApp
+        </a>
+
+    </section>
+
+
+    <!-- CONTACT -->
+    <section id="contact">
+
+        <div class="section-heading">
+
+            <span>Visit Us</span>
+
+            <h2>Come hungry. Leave happy.</h2>
+
+        </div>
+
+        <div class="contact-grid">
+
+            <div class="contact-card">
+
+                <div class="icon">📍</div>
+
+                <h3>Location</h3>
+
+                <p>
+                    Riverside Drive<br>
+                    Nairobi, Kenya
+                </p>
+
+            </div>
+
+            <div class="contact-card">
+
+                <div class="icon">🕐</div>
+
+                <h3>Opening Hours</h3>
+
+                <p>
+                    Monday – Sunday<br>
+                    11:00 AM – 10:00 PM
+                </p>
+
+            </div>
+
+            <div class="contact-card">
+
+                <div class="icon">📞</div>
+
+                <h3>Reservations</h3>
+
+                <p>
+                    +254 700 000 000<br>
+                    hello@savannatable.co.ke
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer>
+
+        <div class="footer-content">
+
+            <div class="footer-brand">
+
+                <h2>SAVANNA TABLE</h2>
+
+                <p>
+                    A fictional restaurant concept created as a
+                    website demonstration project.
+                </p>
+
+            </div>
+
+            <div class="footer-links">
+
+                <h3>Explore</h3>
+
+                <a href="#about">About</a>
+                <a href="#menu">Menu</a>
+                <a href="#gallery">Gallery</a>
+                <a href="#contact">Contact</a>
+
+            </div>
+
+            <div class="footer-links">
+
+                <h3>Connect</h3>
+
+                <a href="#">Instagram</a>
+                <a href="#">Facebook</a>
+                <a href="#">WhatsApp</a>
+
+            </div>
+
+        </div>
+
+        <div class="copyright">
+
+            © 2026 Savanna Table.
+            Demo website created as a concept project.
+
+        </div>
+
+    </footer>
+
+
+    <!-- WHATSAPP BUTTON -->
+    <a href="https://wa.me/254700000000"
+       class="whatsapp"
+       target="_blank"
+       aria-label="WhatsApp">
+        💬
+    </a>
+
+</body>
+</html>
